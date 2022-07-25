@@ -1,7 +1,12 @@
 // == Import
 import React from 'react';
+
 import './styles.scss';
-import ListTodo from '../listTodo';
+
+import Form from '../Form';
+import Counter from '../Counter';
+import List from '../List';
+
 import tasks from '../../data/tasks';
 
 // == Composant
@@ -14,7 +19,8 @@ class App extends React.Component {
     };
 
     this.handleNewTaskInputChange = this.handleNewTaskInputChange.bind(this);
-    this.onNewTaskSubmit = this.onNewTaskSubmit.bind(this);
+    this.handleNewTaskSubmit = this.handleNewTaskSubmit.bind(this);
+    this.handleTaskDoneChange = this.handleTaskDoneChange(this);
   }
 
   handleNewTaskInputChange(e) {
@@ -24,7 +30,7 @@ class App extends React.Component {
     });
   }
 
-  onNewTaskSubmit(e) {
+  handleNewTaskSubmit(e) {
     e.preventDefault();
     console.log('submit', this.state.inputNewTask);
     this.state.tasks.push({
@@ -37,10 +43,17 @@ class App extends React.Component {
     });
   }
 
+  handleTaskDoneChange(label) {
+    console.log('checkbox changes', label);
+    this.setState({
+
+    });
+  }
+
   render() {
     return (
       <div className="app">
-        <form className="form" onSubmit={this.onNewTaskSubmit}>
+        <form className="form" onSubmit={this.handleNewTaskSubmit}>
           <input
             type="text"
             className="form-item"
@@ -49,11 +62,16 @@ class App extends React.Component {
             onChange={this.handleNewTaskInputChange}
           />
         </form>
+        <Form />
+        <Counter />
         <p className="counter">
           {this.state.tasks.filter((task) => task.done === false).length}
           &nbsp;tâche(s) en cours
         </p>
-        <ListTodo tasks={this.state.tasks} />
+        <List
+          tasks={this.state.tasks}
+          onTaskDoneChange={this.handleTaskDoneChange}
+        />
       </div>
     );
   }

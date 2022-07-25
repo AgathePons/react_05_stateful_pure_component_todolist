@@ -5,7 +5,7 @@ import './styles.scss';
 import Task from './task';
 
 // == Composant
-function ListTodo({ tasks }) {
+function List({ tasks, onTaskDoneChange }) {
   return (
     <ul className="list">
       {
@@ -16,6 +16,7 @@ function ListTodo({ tasks }) {
               id={item.id}
               label={item.label}
               done={item.done}
+              onTaskDoneChange={onTaskDoneChange}
             />
           ))
           .sort((a) => {
@@ -32,7 +33,7 @@ function ListTodo({ tasks }) {
   );
 }
 
-ListTodo.propTypes = {
+List.propTypes = {
   tasks: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
@@ -40,7 +41,8 @@ ListTodo.propTypes = {
       done: PropTypes.bool.isRequired,
     }),
   ).isRequired,
+  onTaskDoneChange: PropTypes.func.isRequired,
 };
 
 // == Export
-export default ListTodo;
+export default List;
