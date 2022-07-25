@@ -12,18 +12,41 @@ class App extends React.Component {
       inputNewTask: '',
       tasks,
     };
+
+    this.handleNewTaskInputChange = this.handleNewTaskInputChange.bind(this);
+    this.onNewTaskSubmit = this.onNewTaskSubmit.bind(this);
+  }
+
+  handleNewTaskInputChange(e) {
+    console.log('change', e.target.value);
+    this.setState({
+      inputNewTask: e.target.value,
+    });
+  }
+
+  onNewTaskSubmit(e) {
+    e.preventDefault();
+    console.log('submit', this.state.inputNewTask);
+    this.state.tasks.push({
+      id: 100,
+      label: this.state.inputNewTask,
+      done: false,
+    });
+    this.setState({
+      tasks,
+    });
   }
 
   render() {
     return (
       <div className="app">
-        <form className="form">
+        <form className="form" onSubmit={this.onNewTaskSubmit}>
           <input
             type="text"
             className="form-item"
             placeholder="Ajouter une tâche"
             value={this.state.inputNewTask}
-
+            onChange={this.handleNewTaskInputChange}
           />
         </form>
         <p className="counter">
