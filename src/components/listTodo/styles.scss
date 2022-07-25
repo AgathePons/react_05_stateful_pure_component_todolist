@@ -1,0 +1,12 @@
+.list-item {
+  display: block;
+  background: #eee;
+  border-radius: 3px;
+  padding: 1rem;
+  margin: 0.5rem 0;
+}
+
+.list-item--done {
+  opacity: 0.5;
+  text-decoration: line-through;
+}
