@@ -19,10 +19,27 @@ class App extends React.Component {
     };
 
     this.handleTaskInputChange = this.handleTaskInputChange.bind(this);
+    this.handleTaskFormSubmit = this.handleTaskFormSubmit.bind(this);
   }
 
   handleTaskInputChange(event) {
     this.setState({ newTaskText: event.target.value });
+  }
+
+  handleTaskFormSubmit(event) {
+    const { newTaskText, tasks } = this.state;
+    event.preventDefault();
+    console.log('new task', newTaskText);
+    // TODO handle id
+    const newTask = {
+      id: 3,
+      label: newTaskText,
+      done: false,
+    };
+    this.setState({
+      newTaskText: '',
+      // TODO handle array
+    });
   }
 
   render() {
@@ -32,6 +49,7 @@ class App extends React.Component {
         <Form
           newTaskText={newTaskText}
           onTaskInputChange={this.handleTaskInputChange}
+          onTaskFormSubmit={this.handleTaskFormSubmit}
         />
         <Counter nbOfOngoingTasks={tasks.filter((t) => !t.done).length} />
         <List
