@@ -27,10 +27,8 @@ class App extends React.Component {
           />
         </form>
         <p className="counter">
-          {
-            console.log(this.state.tasks)
-          }
-          tâche(s) en cours
+          {this.state.tasks.filter((task) => task.done === false).length}
+          &nbsp;tâche(s) en cours
         </p>
         <ListTodo tasks={this.state.tasks} />
       </div>

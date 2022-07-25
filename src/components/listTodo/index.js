@@ -9,14 +9,24 @@ function ListTodo({ tasks }) {
   return (
     <ul className="list">
       {
-        tasks.map((item) => (
-          <Task
-            key={item.id}
-            id={item.id}
-            label={item.label}
-            done={item.done}
-          />
-        ))
+        tasks
+          .map((item) => (
+            <Task
+              key={item.id}
+              id={item.id}
+              label={item.label}
+              done={item.done}
+            />
+          ))
+          .sort((a) => {
+            if (!a.done) {
+              return -1;
+            }
+            if (a.done) {
+              return 1;
+            }
+            return 0;
+          })
       }
     </ul>
   );
