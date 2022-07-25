@@ -10,7 +10,7 @@ import List from '../List';
 import taskData from '../../data/tasks';
 
 // == Composant
-class App extends React.Component {
+class App extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -30,15 +30,16 @@ class App extends React.Component {
     const { newTaskText, tasks } = this.state;
     event.preventDefault();
     console.log('new task', newTaskText);
-    // TODO handle id
+    const ids = tasks.map((t) => t.id);
+    const newId = Math.max(...ids) + 1;
     const newTask = {
-      id: 3,
+      id: newId,
       label: newTaskText,
       done: false,
     };
     this.setState({
       newTaskText: '',
-      // TODO handle array
+      tasks: [...tasks, newTask],
     });
   }
 
