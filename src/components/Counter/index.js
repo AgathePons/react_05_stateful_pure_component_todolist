@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import './styles.scss';
 
 // == Composant
-function Counter() {
+function Counter({ nbOfOngoingTasks }) {
   return (
-    <p className="counter">3&nbsp;tâche(s) en cours</p>
+    <p className="counter">{nbOfOngoingTasks} tâche(s) en cours</p>
   );
 }
 
 Counter.propTypes = {
-  
+  nbOfOngoingTasks: PropTypes.number.isRequired,
 };
 
 // == Export

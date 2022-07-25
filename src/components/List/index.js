@@ -2,22 +2,26 @@
 import PropTypes from 'prop-types';
 import './styles.scss';
 
-import Task from './task';
-
 // == Composant
-function List({ tasks, onTaskDoneChange }) {
+function List({ taskList }) {
   return (
     <ul className="list">
       {
-        tasks
-          .map((item) => (
-            <Task
-              key={item.id}
-              id={item.id}
-              label={item.label}
-              done={item.done}
-              onTaskDoneChange={onTaskDoneChange}
-            />
+        taskList
+          .map((task) => (
+            <li key={task.id}>
+              <label
+                htmlFor={`task-${task.id}`}
+                className={task.done ? 'list-item list-item--done' : 'list-item'}
+              >
+                <input
+                  id={`task-${task.id}`}
+                  type="checkbox"
+                  checked={task.done}
+                />
+                {task.label}
+              </label>
+            </li>
           ))
           .sort((a) => {
             if (!a.done) {
@@ -34,14 +38,13 @@ function List({ tasks, onTaskDoneChange }) {
 }
 
 List.propTypes = {
-  tasks: PropTypes.arrayOf(
+  taskList: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
       label: PropTypes.string.isRequired,
       done: PropTypes.bool.isRequired,
-    }),
+    }).isRequired,
   ).isRequired,
-  onTaskDoneChange: PropTypes.func.isRequired,
 };
 
 // == Export
