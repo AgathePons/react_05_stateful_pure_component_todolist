@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import './styles.scss';
 
 // == Composant
-function List({ taskList }) {
+function List({ taskList, onTaskStatusChange }) {
   return (
     <ul className="list">
       {
@@ -18,6 +18,7 @@ function List({ taskList }) {
                   id={`task-${task.id}`}
                   type="checkbox"
                   checked={task.done}
+                  onChange={() => onTaskStatusChange(task.id)}
                 />
                 {task.label}
               </label>
@@ -45,6 +46,7 @@ List.propTypes = {
       done: PropTypes.bool.isRequired,
     }).isRequired,
   ).isRequired,
+  onTaskStatusChange: PropTypes.func.isRequired,
 };
 
 // == Export

@@ -20,6 +20,7 @@ class App extends React.PureComponent {
 
     this.handleTaskInputChange = this.handleTaskInputChange.bind(this);
     this.handleTaskFormSubmit = this.handleTaskFormSubmit.bind(this);
+    this.handleTaskStatusChange = this.handleTaskStatusChange.bind(this);
   }
 
   handleTaskInputChange(event) {
@@ -29,7 +30,7 @@ class App extends React.PureComponent {
   handleTaskFormSubmit(event) {
     const { newTaskText, tasks } = this.state;
     event.preventDefault();
-    console.log('new task', newTaskText);
+    // console.log('new task:', newTaskText);
     const ids = tasks.map((t) => t.id);
     const newId = Math.max(...ids) + 1;
     const newTask = {
@@ -40,6 +41,22 @@ class App extends React.PureComponent {
     this.setState({
       newTaskText: '',
       tasks: [...tasks, newTask],
+    });
+  }
+
+  handleTaskStatusChange(checkedId) {
+    const { tasks } = this.state;
+    const newTasks = tasks.map((task) => {
+      if (task.id === checkedId) {
+        return {
+          ...task,
+          done: !task.done,
+        };
+      }
+      return task;
+    });
+    this.setState({
+      tasks: newTasks,
     });
   }
 
@@ -55,6 +72,7 @@ class App extends React.PureComponent {
         <Counter nbOfOngoingTasks={tasks.filter((t) => !t.done).length} />
         <List
           taskList={tasks}
+          onTaskStatusChange={this.handleTaskStatusChange}
         />
       </div>
     );

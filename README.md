@@ -8,3 +8,4 @@ shallow copy / deep copy (copie par référence / copie par veleur)
 PureComponent  
 immutability (immutabilité)  
 spread operator  
+createRef()  
